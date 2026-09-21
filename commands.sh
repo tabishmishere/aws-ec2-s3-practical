@@ -1,26 +1,57 @@
-# AWS EC2 + Linux + Nginx Practical
+# AWS EC2 + Ubuntu + Nginx Practical
 
-# STEP 1: Update Ubuntu package information
+# 1. Update Ubuntu Package Information
 
 sudo apt update
 
-# STEP 2: Install Nginx web server
+# 2. Install Nginx Web Server
 
 sudo apt install nginx -y
 
-# STEP 6: Go to Nginx's default web directory
+# 3. Check Nginx Service Status
+
+sudo systemctl status nginx
+
+# 4. Go to Nginx Web Directory
 
 cd /var/www/html
 
-# STEP 7: List files in the web directory
+# 5. List Files in the Web Directory
 
 ls
 
-
-# STEP 8: Create/edit the webpage
+# 6. Create / Edit the HTML Webpage
 
 sudo nano /var/www/html/index.html
 
-# STEP 9: Check the contents of index.html
+# 7. View the Webpage Source
 
 cat /var/www/html/index.html
+
+# 8. Restart Nginx
+
+sudo systemctl restart nginx
+
+# Deployment Flow
+
+# AWS EC2
+
+# ↓
+
+# Ubuntu
+
+# ↓
+
+# Nginx
+
+# ↓
+
+# /var/www/html/index.html
+
+# ↓
+
+# EC2 Public IP
+
+# ↓
+
+# Web Browser

@@ -16,6 +16,7 @@ cd /var/www/html
 
 ls
 
+
 # STEP 8: Create/edit the webpage
 
 sudo nano /var/www/html/index.html

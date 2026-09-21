@@ -1,101 +1,148 @@
-☁️ AWS EC2 & S3 Practical
+# ☁️ AWS EC2 & S3 Practical
 
-Hands-on AWS practical covering EC2, Ubuntu, Nginx, SSH, and Amazon S3.
+A hands-on AWS cloud practical demonstrating **EC2 server deployment, Ubuntu administration, Nginx web hosting, SSH access, and Amazon S3 object storage**.
 
-🎯 Objective
+The project deploys a custom HTML webpage on an **AWS EC2 Ubuntu server** and uploads an image to **Amazon S3** with public object access.
 
-Deploy a custom webpage on an AWS EC2 Ubuntu server using Nginx, and upload an image to Amazon S3 with public access.
+---
 
-🖥️ EC2 Web Server
-1. EC2 Instance
+## 🎯 Project Overview
 
-Created an Ubuntu EC2 instance with:
+### What I built
 
-Configuration	Details
-OS	Ubuntu
-Instance Type	T8i.micro
-Key Pair	demo-server-key
-Security Group	SSH (22), HTTP (80)
-2. SSH Connection
+* 🖥️ Created an **AWS EC2 Ubuntu instance**
+* 🔐 Connected to the server using **SSH from Windows CMD**
+* 🐧 Managed the Ubuntu server using Linux commands
+* 🌐 Installed and configured **Nginx**
+* 🚀 Deployed a custom `index.html` webpage
+* 🪣 Created an **Amazon S3 bucket**
+* 🖼️ Uploaded an image to S3
+* 🔗 Configured public access for the S3 object
+* 🌍 Accessed both resources through public URLs
+
+---
+
+## 🏗️ Architecture
+
+```text
+                    AWS Cloud
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+       EC2 Instance              S3 Bucket
+       Ubuntu Linux             Image Storage
+          │                         │
+        Nginx                  Public Object URL
+          │                         │
+      index.html                    │
+          │                         │
+          └────────────┬────────────┘
+                       │
+                    Browser
+```
+
+### Deployment Flow
+
+```text
+EC2 → Ubuntu → Nginx → index.html → Public IP → Browser
+```
+
+```text
+S3 Bucket → Image → Public Object URL → Browser
+```
+
+---
+
+## ☁️ EC2 Web Server
+
+### Instance Configuration
+
+| Setting          | Configuration       |
+| ---------------- | ------------------- |
+| Operating System | Ubuntu              |
+| Instance Type    | T8i.micro           |
+| Key Pair         | `demo-server-key`   |
+| Security Group   | SSH (22), HTTP (80) |
+| Web Server       | Nginx               |
+
+### 🔐 SSH Connection
 
 Connected to the EC2 instance from Windows CMD:
 
+```bash
 ssh -i "demo-server-key.pem" ubuntu@<EC2-PUBLIC-IP>
+```
 
+On Windows, private-key permissions were configured using:
 
-Fixed the private-key permission issue using:
-
+```cmd
 icacls "demo-server-key.pem" /inheritance:r
 icacls "demo-server-key.pem" /grant:r "%USERNAME%:R"
+```
 
-3. Ubuntu & Nginx Setup
+### 🌐 Nginx Setup
 
-Updated Ubuntu packages:
+Update Ubuntu packages:
 
+```bash
 sudo apt update
+```
 
+Install Nginx:
 
-Installed Nginx:
-
+```bash
 sudo apt install nginx -y
+```
 
+Check the Nginx service:
 
-Verified the Nginx service:
-
+```bash
 sudo systemctl status nginx
+```
 
+### 🚀 Deploying the Webpage
 
-Result: Active: active (running)
+The webpage was deployed to Nginx's default web directory:
 
-4. Deploy Website
-
-Opened the Nginx web directory:
-
+```bash
 cd /var/www/html
+```
 
+The custom webpage was created using:
 
-Checked the directory:
-
-ls
-
-
-Edited the webpage:
-
+```bash
 sudo nano /var/www/html/index.html
+```
 
+The complete `index.html` file is included in this repository.
 
-The custom webpage is included in this repository as index.html.
+---
 
-5. Website Result
+## 🪣 Amazon S3
 
-The deployed webpage was accessed through the EC2 public IP:
+### Bucket
 
-http://<EC2-PUBLIC-IP>/
+Created an Amazon S3 bucket:
 
+```text
+demo-image1
+```
 
-Deployment flow:
+### 🖼️ Image Upload
 
-EC2 → Ubuntu → Nginx → index.html → Public IP → Browser
+The image was uploaded through:
 
-🪣 Amazon S3
-1. Create Bucket
-
-Created an S3 bucket through the AWS Management Console.
-
-Bucket: demo-image1
-
-2. Upload Image
-
-Uploaded an image using:
-
+```text
 S3 → Bucket → Upload → Add Files → Upload
+```
 
-3. Public Access
+### 🔓 Public Object Access
 
-Configured the required S3 permissions to allow public access to the uploaded image.
+Public access was configured for the uploaded object so it could be accessed through its S3 Object URL.
 
-Example bucket policy:
+Example policy:
 
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -108,92 +155,51 @@ Example bucket policy:
     }
   ]
 }
+```
 
+> ⚠️ Public S3 access was enabled for this practical demonstration. In production environments, access should be restricted according to the application's security requirements.
 
-⚠️ Public access was enabled for this practical only. Public S3 access should be used carefully.
+---
 
-4. Test Object URL
+## 🛠️ Technologies & Services
 
-Copied the uploaded image's Object URL and opened it in a browser.
+| Technology       | Purpose                 |
+| ---------------- | ----------------------- |
+| ☁️ **AWS EC2**   | Cloud virtual server    |
+| 🪣 **Amazon S3** | Object storage          |
+| 🐧 **Ubuntu**    | Server operating system |
+| 🌐 **Nginx**     | Web server              |
+| 🔐 **SSH**       | Remote server access    |
+| 💻 **Linux**     | Server administration   |
+| 🌎 **HTML**      | Custom webpage          |
 
-Result: The image was displayed successfully.
+---
 
-S3 flow:
+## 🎓 Key Learning Outcomes
 
-S3 Bucket → Image → Public Object URL → Browser
+Through this practical, I gained hands-on experience with:
 
-🛠️ Technologies
+* AWS EC2 instance deployment
+* Ubuntu server administration
+* SSH-based remote access
+* Windows SSH key permissions
+* Nginx installation and configuration
+* Linux server commands
+* EC2 security-group configuration
+* Hosting a webpage on a cloud server
+* Amazon S3 bucket management
+* Uploading and accessing S3 objects
+* Public cloud resource URLs
 
-☁️ AWS EC2 — Virtual server
+---
 
-🐧 Ubuntu — Operating system
+## ✅ Result
 
-🌐 Nginx — Web server
+| Resource         | Result                                     |
+| ---------------- | ------------------------------------------ |
+| 🖥️ EC2          | Custom webpage successfully hosted         |
+| 🌐 Nginx         | Successfully serving `index.html`          |
+| 🪣 S3            | Image successfully uploaded                |
+| 🔗 S3 Object URL | Image successfully accessed                |
 
-🪣 Amazon S3 — Cloud storage
-
-🔐 SSH — Remote server access
-
-💻 Linux — Server management
-
-🌎 HTML — Webpage
-
-📁 Project Structure
-aws-ec2-s3-practical/
-│
-├── README.md
-├── commands.sh
-└── index.html
-
-File	Description
-README.md	Practical documentation
-commands.sh	Linux/Shell commands used
-index.html	Custom webpage deployed on EC2
-🎓 Key Learning Outcomes
-
-Created and configured an AWS EC2 instance.
-
-Connected to Ubuntu using SSH.
-
-Managed SSH key permissions on Windows.
-
-Installed and configured Nginx.
-
-Deployed a custom HTML webpage.
-
-Worked with Linux directories and commands.
-
-Configured EC2 security-group ports.
-
-Created and managed an S3 bucket.
-
-Uploaded an image to S3.
-
-Configured public access for an S3 object.
-
-Accessed AWS resources through public URLs.
-
-Documented the practical using GitHub.
-
-✅ Final Result
-Service	Result
-EC2	Custom webpage successfully hosted using Ubuntu + Nginx
-S3	Image successfully uploaded and accessed through a public URL
-GitHub	Practical work and source files documented in a repository
-🔐 Security Note
-
-For security reasons, this repository does not contain:
-
-AWS .pem private keys
-
-AWS Access Keys
-
-AWS Secret Keys
-
-Passwords
-
-Other private credentials
-
-⭐ Conclusion
-
-This practical provided hands-on experience with AWS cloud infrastructure, Linux server administration, web hosting, and cloud storage using EC2 and S3.
+---
